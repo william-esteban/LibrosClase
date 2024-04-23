@@ -28,12 +28,12 @@ const libroscontroller = {
 
     },
 
-    // consultar un libro por el # de referencia. get
+    // consultar un libro por el # de descripcion. get
 
     getLibrosByRef: async (req, res) => {
-        const {NumRef} = req.params.name;
+        const { description } = req.params;
         try {
-            const byname = await Libros.findOne({ name: NumRef });
+            const byname = await Libros.findOne({ description: description });
             res.json(byname);
         } catch (error) {
             console.error('Error al crear los usuarios', error);
@@ -46,7 +46,8 @@ const libroscontroller = {
         try {
             const {name} = req.params;
 
-            const updateLibros = await Libros.findOneAndUpdate({nombre}, {$set:{name:'sad'}})
+            const updateLibros = await Libros.findOneAndUpdate({name}, {$set:{name:'sad'}})
+            res.json(updateLibros);
             
         } catch (error) {
             console.error('Error al crear los usuarios', error);
@@ -59,11 +60,71 @@ const libroscontroller = {
 
     deleteLibros: async (req, res) => {
         try {
-            const {nombre} = req.params;
-            const deleteLibros = await Libros.findOneAndDelete({name:nombre});
+            const {name} = req.params;
+            const deleteLibros = await Libros.findOneAndDelete({name: name});
             res.json(deleteLibros);
         } catch (error) {
             console.error('Error al crear los usuarios', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
+
+    // buscar por id.
+
+    getLibros: async (req, res) => {
+       
+        try {
+            const { id } = req.params;
+            const librosId = await Libros.findOne({_id: id});
+            res.json(librosId);
+
+        } catch (error) {
+            console.error('Error al crear los usuarios', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+            
+        }
+
+    },
+
+    // buscar por author.
+    getLibrosAuthor: async (req, res) => {
+        try {
+            const { author } = request.params;
+            const libroAuthor = await Libros.findOne({ author: author})
+            res.json(libroAuthor);
+
+        } catch (error) {
+             console.error('Error al crear los usuarios', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
+
+    // buscar por nombre.
+
+    getlibroNombre: async (req, res) => {
+        try {
+            const { name } = req.params;
+            const libronombre = await Libros.find({name: name})
+            res.json(libronombre);
+
+        } catch (error) {
+
+             console.error('Error al crear los usuarios', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+            
+        }
+    },
+
+    // buscar porn cantidad de paginas.
+
+    getLibrosCantidad: async (req, res) => {
+        try {
+            const { pages } = req.params;
+            const librosCantidad = await Libros.find({pages: pages});
+            res.json(librosCantidad);
+
+        } catch (error) {
+              console.error('Error al crear los usuarios', error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
     }

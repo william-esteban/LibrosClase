@@ -11,13 +11,16 @@
     <section class="sectionForm">
         <h1>LIBROS</h1>
 
-        <form action="http://localhost:3000/api/libros" method="post">
-            <label for="">Nombre</label>
+        <form action="http://localhost:3001/api/libros/crear" method="post">
+            <label for="">name</label>
             <input type="text" name="name">
-            <label for="">Genero</label>
-            <input type="text" name="genero">
-            <label for="">NumReferencia</label>
-            <input type="text" name="NumRef">
+            <label for="">author</label>
+            <input type="text" name="author">
+            <label for="">pages</label>
+            <input type="number" name="pages">
+            <label for="">description</label>
+            <input type="text" name="description">
+            
     
             <input type="submit">
     
